@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partial/head.ejs') %>
+
+    <body>
+        <section class="header">
+            <br><br>
+            <div class="details">
+                <h1 id="detailsHead" style="color: black;">Product Details</h1>
+                <div class="details-content">
+                    <h3>
+                        Product name: <%= product.product %>
+                    </h3>
+                    <h3>
+                        Quantity: <%= product.quantity %>
+                    </h3>
+                    <h3>
+                        Comment: <%= product.comment %>
+                    </h3>
+                    <div class="editdelete">
+                        <button><a class="delete" data-doc="<%= product._id %>">Delete
+                                Product</a></button>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </section>
+        <br><br>
+        <form method="POST" class="formhome form-container">
+            <h1 id="heading" style="color: black;">Update Product</h1><br>
+            <div class="formhorizontal form-group">
+                <label for="product">Product Name</label>
+                <input type="text" id="product" name="product" required>
+                <label for="quan">Quantity</label>
+                <input type="number" id="quan" name="quantity" required>
+                <label for="com">Comment/Suggestion</label>
+                <input name="comment" id="com" cols="5" rows="6" required>
+                <button class="btn-success">Update</button>
+            </div>
+        </form>
+        <br><br>
+        <script>
+            const trashcan = document.querySelector('a.delete');
+            trashcan.addEventListener('click', (e) => {
+                const endpoint = `/home/details/${trashcan.dataset.doc}`;
+                fetch(endpoint, {
+                    method: 'DELETE'
+                })
+                    .then((response) => response.json())
+                    .then((data) => window.location.href = data.redirect)
+                    .catch((err) => console.log(err));
+            });
+        </script>
+
+    </body>
+
+</html>

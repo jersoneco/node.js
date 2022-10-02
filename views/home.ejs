@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partial/head.ejs') %>
+
+    <body>
+
+        <section class="header">
+            <nav>
+                <h4 style="border: none;">Supreme Mario Market</h4>
+                <ul>
+                    <li><a href="/logout">Log out</a></li>
+                </ul>
+            </nav>
+            <div class="productcontent">
+                <h1 id="heading">All Product</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Comment/Suggestions</th>
+                            <th scope="col">Delete or Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if ((allproduct.length)> 0) { %>
+                            <% allproduct.forEach(product=> { %>
+                                <tr>
+                                    <td>
+                                        <%= product.product %>
+                                    </td>
+                                    <td>
+                                        <%= product.quantity %>
+                                    </td>
+                                    <td>
+                                        <%= product.comment %>
+                                    </td>
+                                    <td>
+                                        <a class="single" href="/home/details/<%= product._id %>"> Delete/Edit </a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                    <% }else { %>
+                                        <h3 style="text-align: center">There are no product yet.</h3>
+                                        <% }; %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br><br>
+
+        <form action="/home" method="POST" class="formhome form-container">
+            <h1 id="heading" style="color: black;">Add Product</h1>
+            <div class="formhorizontal form-group">
+                <label for="prodcut">Product Name</label>
+                <input type="text" id="product" name="product" required>
+                <label for="quan">Quantity</label>
+                <input type="number" id="quan" name="quantity" required>
+                <label for="com">Comment/Suggestion</label>
+                <input name="comment" id="com" cols="" rows="" required>
+                <button class="btn-success">Add</button>
+            </div>
+        </form>
+
+    </body>
+
+</html>
